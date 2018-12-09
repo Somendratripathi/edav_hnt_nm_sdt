@@ -30,3 +30,5 @@ As negative factors to grade, we made following guessses.
 ### 1.3 Team Member and Individual Contribution to Project
 
 Our team consists of Hrishikesh Telang, Naoto Minakawa, and Somendra Tripathi. For exploratory data analysis (EDA) part, we categorize variables into several groups as mentioned in detail later at 3.2. Each individual conduct EDA for assigned group of variables. After EDA, Hrishkesh implemented interactive chart in D3/Shiny, Somendra conducted further EDA, Naoto gathered materials to create report. Finally, we reviewed our consolidated work and created executive summary. We regularly discussed issues and progress so that we can be on the same page.
+
+(see more)[FP_report_v1.md]
