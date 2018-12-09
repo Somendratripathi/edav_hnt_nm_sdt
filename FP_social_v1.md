@@ -414,3 +414,43 @@ ggtitle("XXX")
 ```
 
 ![](FP_social_v1_files/figure-markdown_github/unnamed-chunk-8-1.png)
+
+``` r
+c3 <- ggplot(student_por, aes(x=Dalc, y=G3, color=sex))+
+      geom_jitter(alpha=0.8)+
+       scale_colour_manual(values=c("#e15759", "#a0cbe8"))+
+      xlab("Workday alcohol consumption")+
+      ylab("G3")+
+      ggtitle("Workday alcohol consumption per school and sex")+
+      geom_hline(yintercept=10, linetype="dashed", 
+                color = "black", size=1)
+
+
+c4 <- ggplot(student_por, aes(x=Walc, y=G3, color=sex))+
+      geom_jitter(alpha=0.8)+
+       scale_colour_manual(values=c("#e15759", "#a0cbe8"))+
+      xlab("Weekend alcohol consumption")+
+      ylab("G3")+
+      ggtitle("Weekend alcohol consumption per school and sex")+
+      geom_hline(yintercept=10, linetype="dashed", 
+                color = "black", size=1)
+
+
+gridExtra::grid.arrange(c3,c4, nrow=2)
+```
+
+![](FP_social_v1_files/figure-markdown_github/fig21-1.png)
+
+##### Absences and alcohol consumption
+
+``` r
+ggplot(student_por, aes(x=Dalc, y=absences, fill=Dalc))+
+      geom_violin()+
+      scale_fill_manual(values = c("#d3d3d3","#d3d3d3","#d3d3d3","#d3d3d3","#ff4e50"))+
+      theme(legend.position="none")+
+      xlab("Alcohol consumption")+
+      ylab("#absences") +
+      ggtitle("This is a coincidence!")
+```
+
+![](FP_social_v1_files/figure-markdown_github/fig22-1.png)

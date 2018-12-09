@@ -1,0 +1,273 @@
+---
+title: "FP_Homeenv_v1"
+author: "Somendra"
+date: "December 8, 2018"
+output: html_document
+---
+
+```{r setup ,  message=FALSE}
+
+library(ggbeeswarm)
+library(cluster)
+library(tidyverse)
+library(ggthemes)
+library(carData)
+library(extracat)
+library(pgmm)
+library(GGally)
+library(vcd)
+
+student_por <- read_csv('student-por.csv')
+student_mat <- read_csv('student-mat.csv')
+
+
+theme_set(c(theme_classic(12),plot.title = element_text(face = "bold", size = 12) 
+            ,plot.subtitle = element_text(face = "bold", color = "grey35", size = 11) 
+            ,plot.caption = element_text(color = "grey68",size=5)
+            ,axis.text = element_text(size=10)))
+```
+
+##### Reference to the paper
+[USING DATA MINING TO PREDICT SECONDARY SCHOOL STUDENT PERFORMANCE](http://www3.dsi.uminho.pt/pcortez/student.pdf)
+
+##### Student file contains the following number of observations : 
+* Mathematics : 395
++ Portuguese  : 677
++ Both        : 382
+
+
+##### Although some students have performed poorly in mathematics and have managed a passing score in portuguese, two variables are positively correlated
+```{r fig0.0, fig.height = 6,fig.width = 10}
+
+student_both=merge(student_mat,student_por,by=c("school","sex","age","address","famsize","Pstatus","Medu",
+                                                "Fedu","Mjob","Fjob","reason","nursery","internet"))
+#print(nrow(student_both)) # 382 students
+
+ggplot(student_both, aes(G3.x,G3.y,color = "blue"))+
+  geom_jitter() + 
+  theme(legend.position = "none") +
+  xlab("Maths grade") +
+  ylab("Portuguese grade") +
+  ggtitle("Correlation between grades in Maths & Portuguese")
+
+```
+
+
+##### Distribution of grades
+```{r fig0.1, fig.height = 6,fig.width = 10}
+
+p_por <- student_por %>% mutate(grade = as.factor(G3)) %>%
+group_by(grade) %>% summarise(freq = n()) %>%
+ggplot() +
+geom_histogram(aes(x = grade ,y = freq), stat = 'identity') +
+ggtitle("Portuguese : Frequency of students")+
+xlab("Final Grade") + ylab("Number of students")
+p_mat <- student_mat %>% mutate(grade = as.factor(G3))%>%
+group_by(grade) %>% summarise(freq = n()) %>%
+ggplot() +
+geom_histogram(aes(x = grade ,y = freq), stat = 'identity') +
+ggtitle("Mathematics : Frequency of students")+
+xlab("Final Grade") + ylab("Number of students")
+gridExtra::grid.arrange(p_por,p_mat,ncol=2)
+
+```
+
+
+##### Coverting GPA - G3, G2, G1 to erasmus system discribed in the paper
+```{r, echo = FALSE}
+
+student_por = 
+student_por %>%
+  mutate(G3_erasmus = if_else(between(G3, 1,9),'Fail',
+                      if_else(between(G3, 10,11),'Sufficient',
+                      if_else(between(G3, 12,13),'Satisfactory',
+                      if_else(between(G3, 14,15),'Good','Excellent')))))
+
+student_por$G3_erasmus <- factor(student_por$G3_erasmus, ordered = TRUE, levels =  c('Fail', 'Sufficient', 'Satisfactory', 'Good', 'Excellent'))
+
+student_por = 
+student_por %>%
+  mutate(G2_erasmus = if_else(between(G2, 1,9),'Fail',
+                      if_else(between(G2, 10,11),'Sufficient',
+                      if_else(between(G2, 12,13),'Satisfactory',
+                      if_else(between(G2, 14,15),'Good','Excellent')))))
+student_por$G2_erasmus <- factor(student_por$G2_erasmus, ordered = TRUE, levels =  c('Fail', 'Sufficient', 'Satisfactory', 'Good', 'Excellent'))
+
+student_por = 
+student_por %>%
+  mutate(G1_erasmus = if_else(between(G1, 1,9),'Fail',
+                      if_else(between(G1, 10,11),'Sufficient',
+                      if_else(between(G1, 12,13),'Satisfactory',
+                      if_else(between(G1, 14,15),'Good','Excellent')))))
+student_por$G1_erasmus <- factor(student_por$G1_erasmus, ordered = TRUE, levels =  c('Fail', 'Sufficient', 'Satisfactory', 'Good', 'Excellent'))
+
+```
+
+#### 1) Urban VS. Rural setting
+
+##### How do the GPAs vary?
+
+```{r fig2, fig.height = 6,fig.width = 10}
+
+student_por$address[student_por$address == 'U'] <- "Urban"
+student_por$address[student_por$address == 'R'] <- "Rural"
+
+
+address_gpa<- student_por %>%
+  ggplot(aes(x = address, y = G3, color = address)) +
+  geom_boxplot() +
+  scale_color_manual(values = c("#e15759","#a0cbe8"))+
+ggtitle("Higher GPAs for student who live in Urban areas")
+
+
+freq <- ggplot(student_por, aes(x = address, fill = address)) +
+  geom_bar() +
+  scale_fill_manual(values = c("#e15759","#a0cbe8"))+
+  ggtitle("More students from urban than rural in the report")
+
+gridExtra::grid.arrange(address_gpa,freq,ncol=2)
+
+```
+
+##### Internet : Do they have better access to internet?
+
+
+```{r fig3, fig.height = 6,fig.width = 10}
+student_por %>%
+  ggplot(aes(x = internet, y = G3, color = internet)) +
+  geom_boxplot() +
+  facet_wrap(~address)+
+  scale_color_manual(values = c("#e15759","#a0cbe8"))+
+ggtitle("Higher GPAs for student who live in Urban areas")
+
+```
+
+##### Schools : is a particular school more linient ? and urban people go to that school?
+
+```{r fig4, fig.height = 6,fig.width = 10}
+student_por %>%
+  ggplot(aes(x = school, y = G3, color = school)) +
+  geom_boxplot() +
+  #facet_wrap(~)+
+  scale_color_manual(values = c("#e15759","#a0cbe8"))+
+ggtitle("Higher GPAs for student who live in Urban areas")
+
+```
+
+##### Percentage urban VS schools they go to 
+
+
+```{r fig5, fig.height = 6,fig.width = 10}
+
+student_por %>% 
+  group_by(school, address) %>% tally() %>%
+  group_by(address) %>%
+  mutate(percent = n/sum(n))  %>%
+  arrange(desc(school)) %>%
+  
+  ggplot(aes(x = address, y = percent)) + 
+  
+  geom_col(aes(fill = school)) +
+  geom_text(aes(label = paste(round(percent,2) * 100, "%",sep = "")),position = position_stack(vjust = 0.5))+
+  scale_colour_manual(values = c("#e15759","#a0cbe8")) +
+  scale_fill_manual(values = c("#e15759","#a0cbe8")) +
+  labs(fill = "school") +
+  ggtitle("76% urban people study at GP vs 40% rural")
+
+```
+
+
+#### 2) What role does famsize play?
+
+```{r fig6, fig.height = 6,fig.width = 10}
+famsize_gpa<- student_por %>%
+  ggplot(aes(x = famsize, y = G3, color = famsize)) +
+  geom_boxplot() +
+  scale_color_manual(values = c("#e15759","#a0cbe8"))+
+ggtitle("No difference in grades")
+
+
+freq <- ggplot(student_por, aes(x = famsize, fill = famsize)) +
+  geom_bar() +
+  scale_fill_manual(values = c("#e15759","#a0cbe8"))+
+  ggtitle("Most of the families have sizes greater than 3")
+
+gridExtra::grid.arrange(famsize_gpa,freq,ncol=2)
+
+```
+
+
+##### What if the setting is Urban/Rural 
+
+```{r fig7, fig.height = 6,fig.width = 10}
+student_por %>%
+  ggplot(aes(x = address, y = G3, color = famsize)) +
+  geom_boxplot() +
+  facet_wrap(~Pstatus) + 
+  scale_color_manual(values = c("#e15759","#a0cbe8"))+
+ggtitle("No difference in grades")
+
+```
+
+
+##### What if the parents are leaving separately?
+```{r fig8, fig.height = 6,fig.width = 10}
+
+student_por %>%
+  ggplot(aes(x = famsize, y = G3, color = famsize)) +
+  geom_boxplot() +
+  facet_wrap(~Pstatus) + 
+  scale_color_manual(values = c("#e15759","#a0cbe8"))+
+ggtitle("No difference in grades")
+
+```
+
+
+
+##### Does parents living separately have any impact?
+
+```{r fig9, fig.height = 6,fig.width = 10}
+
+student_por %>%
+  ggplot(aes(x = Pstatus, y = G3, color = Pstatus)) +
+  geom_boxplot() +
+  scale_color_manual(values = c("#e15759","#a0cbe8"))+
+ggtitle("No difference in grades")
+
+
+```
+
+
+##### How about gender and pstatus?
+
+```{r fighi,fig.height =0.1,fig.width = 0.1 }
+x <- student_por %>%
+  ggplot(aes(x = Pstatus, y = G3, color = Pstatus)) +
+  geom_boxplot() +
+  facet_wrap(~sex)+
+  scale_color_manual(values = c("#e15759","#a0cbe8"))+
+ggtitle("Males students whose parents were separated performed better")
+
+
+freq_fem <- ggplot(filter(student_por,sex=="F"), aes(x = Pstatus, fill = Pstatus)) +
+  geom_bar() +
+  scale_fill_manual(values = c("#e15759","#a0cbe8"))+
+  ggtitle("Females: parents staying together")
+
+freq_male <- ggplot(filter(student_por,sex=="M"), aes(x = Pstatus, fill = Pstatus)) +
+  geom_bar() +
+  scale_fill_manual(values = c("#e15759","#a0cbe8"))+
+  ggtitle("Males: parents staying together")
+
+y <- gridExtra::grid.arrange(freq_fem,freq_male, ncol = 2)
+
+
+```
+
+```{r fig10, fig.height = 10,fig.width = 10}
+gridExtra::grid.arrange(x,y,ncol=1,nrow=2)
+```
+
+
+
+
