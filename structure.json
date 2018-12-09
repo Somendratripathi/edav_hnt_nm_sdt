@@ -1,0 +1,45 @@
+{
+    "name": "past failures > 0.5",
+    "children": [
+        {
+        "name": "family relationship<2.5",
+        "children": [
+            {
+                "name": "Fail"
+            },
+            {
+                "name": "past  failures >=2.5",
+                "children": [
+                    {
+                        "name": "Fail"
+                    },
+                    {
+                        "name": "family relationship>=4.5",
+                        "children":[
+                            {
+                                "name":"study time<1.5",
+                                "children":[
+                                {
+                                    "name":"Fail"
+                                },
+                                {
+                                    "name":"Pass"
+                                }
+                                ]
+
+                            },
+                            {
+                                "name":"Pass"
+                            }
+
+                    ]
+                    }
+                ]
+            }
+            ]
+        },
+        {
+        "name": "Pass"
+        }
+    ]
+}
