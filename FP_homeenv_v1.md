@@ -1,14 +1,4 @@
----
-title: "FP_Homeenv_v1"
-author: "Somendra"
-date: "December 8, 2018"
-output:
-  md_document:
-    variant: markdown_github
----
-
-```{r setup ,  message=FALSE}
-
+``` r
 library(ggbeeswarm)
 library(cluster)
 library(tidyverse)
@@ -30,50 +20,22 @@ theme_set(c(theme_classic(12),plot.title = element_text(face = "bold", size = 12
 ```
 
 ##### Reference to the paper
+
 [USING DATA MINING TO PREDICT SECONDARY SCHOOL STUDENT PERFORMANCE](http://www3.dsi.uminho.pt/pcortez/student.pdf)
 
-##### Student file contains the following number of observations : 
-* Mathematics : 395
-+ Portuguese  : 677
-+ Both        : 382
+##### Student file contains the following number of observations :
 
+-   Mathematics : 395
+-   Portuguese : 677
+-   Both : 382
 
 ##### Coverting GPA - G3, G2, G1 to erasmus system discribed in the paper
-```{r, echo = FALSE}
-
-student_por = 
-student_por %>%
-  mutate(G3_erasmus = if_else(between(G3, 0,9),'Fail',
-                      if_else(between(G3, 10,11),'Sufficient',
-                      if_else(between(G3, 12,13),'Satisfactory',
-                      if_else(between(G3, 14,15),'Good','Excellent')))))
-
-student_por$G3_erasmus <- factor(student_por$G3_erasmus, ordered = TRUE, levels =  c('Fail', 'Sufficient', 'Satisfactory', 'Good', 'Excellent'))
-
-student_por = 
-student_por %>%
-  mutate(G2_erasmus = if_else(between(G2, 0,9),'Fail',
-                      if_else(between(G2, 10,11),'Sufficient',
-                      if_else(between(G2, 12,13),'Satisfactory',
-                      if_else(between(G2, 14,15),'Good','Excellent')))))
-student_por$G2_erasmus <- factor(student_por$G2_erasmus, ordered = TRUE, levels =  c('Fail', 'Sufficient', 'Satisfactory', 'Good', 'Excellent'))
-
-student_por = 
-student_por %>%
-  mutate(G1_erasmus = if_else(between(G1, 0,9),'Fail',
-                      if_else(between(G1, 10,11),'Sufficient',
-                      if_else(between(G1, 12,13),'Satisfactory',
-                      if_else(between(G1, 14,15),'Good','Excellent')))))
-student_por$G1_erasmus <- factor(student_por$G1_erasmus, ordered = TRUE, levels =  c('Fail', 'Sufficient', 'Satisfactory', 'Good', 'Excellent'))
-
-```
 
 #### 1) Urban VS. Rural setting
 
 ##### How do the GPAs vary?
 
-```{r fig2, fig.height = 6,fig.width = 10}
-
+``` r
 student_por$address[student_por$address == 'U'] <- "Urban"
 student_por$address[student_por$address == 'R'] <- "Rural"
 
@@ -91,39 +53,39 @@ freq <- ggplot(student_por, aes(x = address, fill = address)) +
   ggtitle("More students from urban than rural in the report")
 
 gridExtra::grid.arrange(address_gpa,freq,ncol=2)
-
 ```
+
+![](FP_homeenv_v1_files/figure-markdown_github/fig2-1.png)
 
 ##### Internet : Do they have better access to internet?
 
-
-```{r fig3, fig.height = 6,fig.width = 10}
+``` r
 student_por %>%
   ggplot(aes(x = internet, y = G3, color = internet)) +
   geom_boxplot() +
   facet_wrap(~address)+
   scale_color_manual(values = c("#e15759","#a0cbe8"))+
 ggtitle("Higher GPAs for student who live in Urban areas")
-
 ```
+
+![](FP_homeenv_v1_files/figure-markdown_github/fig3-1.png)
 
 ##### Schools : is a particular school more linient ? and urban people go to that school?
 
-```{r fig4, fig.height = 6,fig.width = 10}
+``` r
 student_por %>%
   ggplot(aes(x = school, y = G3, color = school)) +
   geom_boxplot() +
   #facet_wrap(~)+
   scale_color_manual(values = c("#e15759","#a0cbe8"))+
 ggtitle("Higher GPAs for student who live in Urban areas")
-
 ```
 
-##### Percentage urban VS schools they go to 
+![](FP_homeenv_v1_files/figure-markdown_github/fig4-1.png)
 
+##### Percentage urban VS schools they go to
 
-```{r fig5, fig.height = 6,fig.width = 10}
-
+``` r
 student_por %>% 
   group_by(school, address) %>% tally() %>%
   group_by(address) %>%
@@ -138,13 +100,13 @@ student_por %>%
   scale_fill_manual(values = c("#e15759","#a0cbe8")) +
   labs(fill = "school") +
   ggtitle("76% urban people study at GP vs 40% rural")
-
 ```
 
+![](FP_homeenv_v1_files/figure-markdown_github/fig5-1.png)
 
 #### 2) What role does famsize play?
 
-```{r fig6, fig.height = 6,fig.width = 10}
+``` r
 famsize_gpa<- student_por %>%
   ggplot(aes(x = famsize, y = G3, color = famsize)) +
   geom_boxplot() +
@@ -160,51 +122,49 @@ freq <- ggplot(student_por, aes(x = famsize, fill = famsize)) +
 gridExtra::grid.arrange(famsize_gpa,freq,ncol=2)
 ```
 
+![](FP_homeenv_v1_files/figure-markdown_github/fig6-1.png)
 
-##### What if the setting is Urban/Rural 
+##### What if the setting is Urban/Rural
 
-```{r fig7, fig.height = 6,fig.width = 10}
+``` r
 student_por %>%
   ggplot(aes(x = address, y = G3, color = famsize)) +
   geom_boxplot() +
   facet_wrap(~Pstatus) + 
   scale_color_manual(values = c("#e15759","#a0cbe8"))+
 ggtitle("No difference in grades")
-
 ```
 
+![](FP_homeenv_v1_files/figure-markdown_github/fig7-1.png)
 
 ##### What if the parents are leaving separately?
-```{r fig8, fig.height = 6,fig.width = 10}
 
+``` r
 student_por %>%
   ggplot(aes(x = famsize, y = G3, color = famsize)) +
   geom_boxplot() +
   facet_wrap(~Pstatus) + 
   scale_color_manual(values = c("#e15759","#a0cbe8"))+
 ggtitle("No difference in grades")
-
 ```
 
-
+![](FP_homeenv_v1_files/figure-markdown_github/fig8-1.png)
 
 ##### Does parents living separately have any impact?
 
-```{r fig9, fig.height = 6,fig.width = 10}
-
+``` r
 student_por %>%
   ggplot(aes(x = Pstatus, y = G3, color = Pstatus)) +
   geom_boxplot() +
   scale_color_manual(values = c("#e15759","#a0cbe8"))+
 ggtitle("No difference in grades")
-
-
 ```
 
+![](FP_homeenv_v1_files/figure-markdown_github/fig9-1.png)
 
 ##### How about gender and pstatus?
 
-```{r fighi,fig.height =0.1,fig.width = 0.1 }
+``` r
 x <- student_por %>%
   ggplot(aes(x = Pstatus, y = G3, color = Pstatus)) +
   geom_boxplot() +
@@ -224,18 +184,19 @@ freq_male <- ggplot(filter(student_por,sex=="M"), aes(x = Pstatus, fill = Pstatu
   ggtitle("Males: parents staying together")
 
 y <- gridExtra::grid.arrange(freq_fem,freq_male, ncol = 2)
-
-
 ```
 
-```{r fig10, fig.height = 10,fig.width = 10}
+![](FP_homeenv_v1_files/figure-markdown_github/fighi-1.png)
+
+``` r
 gridExtra::grid.arrange(x,y,ncol=1,nrow=2)
 ```
 
-
+![](FP_homeenv_v1_files/figure-markdown_github/fig10-1.png)
 
 #### 3) famrel : quality of family relationships (numeric: from 1 - very bad to 5 - excellent)
-```{r}
+
+``` r
 student_por$famrel <- factor(student_por$famrel,labels =  c('very_low', 'low', 'medium', 'high', 'very_high'),ordered = TRUE)
 
 student_por %>%
@@ -243,20 +204,19 @@ student_por %>%
   geom_boxplot() +
   scale_color_manual(values = c("#D64E4E","#F2CAC1","#d3d3d3","#a0cbe8","#4e79a7"))+
 ggtitle("Students with high quality of family relationships achieved high grades")
-
 ```
 
-##### Do Urban families have quality relationships?
-```{r}
+![](FP_homeenv_v1_files/figure-markdown_github/unnamed-chunk-2-1.png)
 
+##### Do Urban families have quality relationships?
+
+``` r
 student_por %>%
   ggplot(aes(x = as.factor(famrel), y = G3, color = as.factor(famrel))) +
   facet_wrap(~address) +
   geom_boxplot() +
   scale_color_manual(values = c("#D64E4E","#F2CAC1","#d3d3d3","#a0cbe8","#4e79a7"))+
 ggtitle("Students with high quality of family relationships achieved high grades")
-
 ```
 
-
-
+![](FP_homeenv_v1_files/figure-markdown_github/unnamed-chunk-3-1.png)
