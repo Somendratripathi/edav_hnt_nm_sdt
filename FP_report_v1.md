@@ -288,6 +288,193 @@ student_por <- student_por %>%
 
 ### 4.3.1 Analysis for Home Environment Group
 
+Firstly, we found that students who live in urban areas earn higher GPA than students in rural area. We also found that there are more students from urban than rural in the report.
+
+``` r
+student_por$address[student_por$address == 'U'] <- "Urban"
+student_por$address[student_por$address == 'R'] <- "Rural"
+
+
+address_gpa<- student_por %>%
+  ggplot(aes(x = address, y = G3, color = address)) +
+  geom_boxplot() +
+  scale_color_manual(values = c("#e15759","#a0cbe8"))+
+  ggtitle("Higher GPAs for student who live in Urban areas")
+
+freq <- ggplot(student_por, aes(x = address, fill = address)) +
+  geom_bar() +
+  scale_fill_manual(values = c("#e15759","#a0cbe8"))+
+  ggtitle("More students from urban than rural in the report")
+
+gridExtra::grid.arrange(address_gpa,freq,ncol=2)
+```
+
+![](FP_report_v1_files/figure-markdown_github/fig4.3.1.1-1.png)
+
+We observed that students in urban areas have more access to the internet than students in rural area.
+
+``` r
+student_por %>%
+  ggplot(aes(x = internet, y = G3, color = internet)) +
+  geom_boxplot() +
+  facet_wrap(~address)+
+  scale_color_manual(values = c("#e15759","#a0cbe8"))+
+  ggtitle("Higher GPAs for student who live in Urban areas")
+```
+
+![](FP_report_v1_files/figure-markdown_github/fig4.3.1.2-1.png)
+
+We analyzed if a particular school is more linient and urban people go to that school. School GP indicated more higher GPA.
+
+``` r
+student_por %>%
+  ggplot(aes(x = school, y = G3, color = school)) +
+  geom_boxplot() +
+  #facet_wrap(~)+
+  scale_color_manual(values = c("#e15759","#a0cbe8"))+
+  ggtitle("Higher GPAs for student who live in Urban areas")
+```
+
+![](FP_report_v1_files/figure-markdown_github/fig4.3.1.3-1.png)
+
+Interestingly, 76% students in urban ares study at GP while 40% of students in rural area do so.
+
+``` r
+student_por %>% 
+  group_by(school, address) %>% tally() %>%
+  group_by(address) %>%
+  mutate(percent = n/sum(n))  %>%
+  arrange(desc(school)) %>%
+  ggplot(aes(x = address, y = percent)) + 
+  geom_col(aes(fill = school)) +
+  geom_text(aes(label = paste(round(percent,2) * 100, "%",sep = "")),
+            position = position_stack(vjust = 0.5))+
+  scale_colour_manual(values = c("#e15759","#a0cbe8")) +
+  scale_fill_manual(values = c("#e15759","#a0cbe8")) +
+  labs(fill = "school") +
+  ggtitle("76% urban people study at GP vs 40% rural")
+```
+
+![](FP_report_v1_files/figure-markdown_github/fig4.3.1.4-1.png)
+
+Next, we analyzed what role famsize play. We don't see any difference regarding grades due to family size. Most of the families have sizes greater than 3.
+
+``` r
+famsize_gpa<- student_por %>%
+  ggplot(aes(x = famsize, y = G3, color = famsize)) +
+  geom_boxplot() +
+  scale_color_manual(values = c("#e15759","#a0cbe8"))+
+  ggtitle("No difference in grades")
+
+freq <- ggplot(student_por, aes(x = famsize, fill = famsize)) +
+  geom_bar() +
+  scale_fill_manual(values = c("#e15759","#a0cbe8"))+
+  ggtitle("Most of the families have sizes greater than 3")
+
+gridExtra::grid.arrange(famsize_gpa,freq,ncol=2)
+```
+
+![](FP_report_v1_files/figure-markdown_github/fig4.3.1.5-1.png)
+
+Regarding whether parents live separately or not, it does not have impact on students grades.
+
+``` r
+student_por %>%
+  ggplot(aes(x = Pstatus, y = G3, color = Pstatus)) +
+  geom_boxplot() +
+  scale_color_manual(values = c("#e15759","#a0cbe8"))+
+ggtitle("No difference in grades")
+```
+
+![](FP_report_v1_files/figure-markdown_github/fig4.3.1.6-1.png)
+
+We took a look at the combination of family size and whether parents live separately or not, however, it does not have impact on students grades.
+
+``` r
+student_por %>%
+  ggplot(aes(x = address, y = G3, color = famsize)) +
+  geom_boxplot() +
+  facet_wrap(~Pstatus) + 
+  scale_color_manual(values = c("#e15759","#a0cbe8"))+
+  ggtitle("No difference in grades")
+```
+
+![](FP_report_v1_files/figure-markdown_github/fig4.3.1.7-1.png)
+
+On the other hand, when we look at whether parents live separately or not, facetting by if students live in urban or rural area, we see students living separately from parents in urban area perform better.
+
+``` r
+student_por %>%
+  ggplot(aes(x = famsize, y = G3, color = famsize)) +
+  geom_boxplot() +
+  facet_wrap(~Pstatus) + 
+  scale_color_manual(values = c("#e15759","#a0cbe8"))+
+  ggtitle("Students living separately from parents in urban area perform better")
+```
+
+![](FP_report_v1_files/figure-markdown_github/fig4.3.1.8-1.png)
+
+When we look into the combination of gender and pstatus, males students whose parents were separated performed better.
+
+``` r
+x <- student_por %>%
+  ggplot(aes(x = Pstatus, y = G3, color = Pstatus)) +
+  geom_boxplot() +
+  facet_wrap(~sex)+
+  scale_color_manual(values = c("#e15759","#a0cbe8"))+
+  ggtitle("Males students whose parents were separated performed better")
+
+
+freq_fem <- ggplot(filter(student_por,sex=="F"), aes(x = Pstatus, fill = Pstatus)) +
+  geom_bar() +
+  scale_fill_manual(values = c("#e15759","#a0cbe8"))+
+  ggtitle("Females: parents staying together")
+
+freq_male <- ggplot(filter(student_por,sex=="M"), aes(x = Pstatus, fill = Pstatus)) +
+  geom_bar() +
+  scale_fill_manual(values = c("#e15759","#a0cbe8"))+
+  ggtitle("Males: parents staying together")
+
+y <- gridExtra::grid.arrange(freq_fem,freq_male, ncol = 2)
+```
+
+![](FP_report_v1_files/figure-markdown_github/fig4.3.1.9-1.png)
+
+``` r
+gridExtra::grid.arrange(x,y,ncol=1,nrow=2)
+```
+
+![](FP_report_v1_files/figure-markdown_github/fig4.3.1.10-1.png)
+
+Regarding family relationship, students with higher quality of family relationships earned better grades.
+
+``` r
+student_por$famrel <- factor(student_por$famrel,
+                             labels =  c('very_low', 'low', 'medium', 'high', 'very_high'),
+                             ordered = TRUE)
+
+student_por %>%
+  ggplot(aes(x = as.factor(famrel), y = G3, color = as.factor(famrel))) +
+  geom_boxplot() +
+  scale_color_manual(values = c("#D64E4E","#F2CAC1","#d3d3d3","#a0cbe8","#4e79a7"))+
+  ggtitle("Students with high quality of family relationships achieved high grades")
+```
+
+![](FP_report_v1_files/figure-markdown_github/fig4.3.1.11-1.png)
+
+According to the following chart, such tendency is seen for urban families.
+
+``` r
+student_por %>%
+  ggplot(aes(x = as.factor(famrel), y = G3, color = as.factor(famrel))) +
+  facet_wrap(~address) +
+  geom_boxplot() +
+  scale_color_manual(values = c("#D64E4E","#F2CAC1","#d3d3d3","#a0cbe8","#4e79a7"))+
+  ggtitle("Students with high quality of family relationships achieved high grades")
+```
+
+![](FP_report_v1_files/figure-markdown_github/fig4.3.1.12-1.png)
+
 ### 4.3.2 Analysis for Social Group
 
 In social group, Freetime was the most interesting variable which affects grade. From the following chart, we can see lower grade students have higher free time.
@@ -730,3 +917,6 @@ Please find an executive summary for this URL.
 =======================
 
 Please find an interactive chart for this URL.
+
+7 Conclusion
+============
