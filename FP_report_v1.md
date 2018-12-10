@@ -36,7 +36,7 @@ Our team consists of Hrishikesh Telang, Naoto Minakawa, and Somendra Tripathi. F
 
 ### 2.1 The Brief Explanation of Dataset
 
-We chose Student Performance Data Set which is provided on UC Irvine Machine Learning Repository. The data were obtained in a survey of students at math and Portuguese language courses in secondary school. It contains a lot of interesting social, gender-based and study related information about students. Some variables are associated with the questions we are interested in. There are several (382) students that belong to both datasets.
+We chose Student Performance Data Set which is provided on UC Irvine Machine Learning Repository. The data were obtained in a survey of students at math and Portuguese language courses in secondary school. It contains a lot of interesting social, gender-based and study related information about students. Some variables are associated with the questions we are interested in. There are several (382) students that belong to both datasets, i.e they take both Math and Portuguese courses.
 
 (Source)
 
@@ -250,13 +250,11 @@ Following is our definiton of categorization;
 
 ### 3.3 Issues with the dataset
 
-We found some issues during data quality analysis. According to data source, there are 382 overlapping students in math course and Portuguese course. Such overlapping students has to be unique.
+We found some issues during data quality analysis. According to data source, there are 382 overlapping students who study both the math course and Portuguese course. Such overlapping students have to be unique in both the datasets.
 
-However, when we tried to join math course data set and Portuguese some of students data appeared not to be unique. Specifically, when we tried to join students by using school, sex, age, address, famsize, Pstatus, Medu, Fedu, Mjob, Fjob, reason, nursery, internet as keys, some fo columns showed different values.
+However, when we tried to join math course data set and Portuguese some of students data appeared not to be unique. Specifically, when we tried to join students by using school, sex, age, address, famsize, Pstatus, Medu, Fedu, Mjob, Fjob, reason, nursery, internet as keys, some columns showed different values.
 
-We found that values in such columns were obtained through interview questions to students, and concluded that there may be some human error in answering questions, resulting in different answers by the same students.
-
-Therefore, we decided to focus only on Portuguese course students by observing that students grades in Portuguese class are almost identical to that of math courses.
+We found that values in such columns were obtained through interview questions to students, and concluded that there may be some human error in tabulating the results or answering questions, resulting in different answers in different surveys by the same students.
 
 4 Main analysis (Exploratory Data Analysis)
 ===========================================
