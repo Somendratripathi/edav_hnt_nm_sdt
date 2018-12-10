@@ -122,7 +122,7 @@ We observed that the number of students were distributed as follows :
 -   Portuguese : 677
 -   Both : 382
 
-It was also obvious from our initial exploration that a lot more students were scoring Zeros in Maths compared to Portuguese.
+It was also obvious from our initial exploration that a lot more students were scoring Zeros in Maths compared to Portuguese. However, the general trend in both the graphs below appears to be the same.
 
 ``` r
 p_por <- student_por %>%
@@ -181,45 +181,45 @@ ggplot(student_both, aes(G3.x,G3.y,color = "blue"))+
 
 ### 3.2 Categorization of Data Attributes
 
-As mentioned in 1.3, we categorized data attributes in 2.2 into several groups so that individual team member can explore different group of attributes. The dataset is not so large, however, there are 30 attirbutes which may be associated with grades. We agreed on approach slice and dice data strategically.
+We categorized data attributes in 2.2 into several groups so that each individual team member can explore a different group of attributes. There are 30 attirbutes which may be associated with grades. We agreed to categorize variables into broad categories which might be useful for analysis.
 
 Following is our definiton of categorization;
 
 1.  Home environment
 
-    We regard that following attritbutes are related to home environment. Except for studytime, we agreed such attributes are straightforwardly related to home environments, because they are exogenously given to students and related to home. We discussed that studytime is not exogenously given, but something that students have controlability. However, studytime does not fit into any other categories and it is indeed related to home environment. Therefore, we concluded that studytime is best possible fit to this category.
+    We regard the following attritbutes as belonging to home environment. While studytime technically does not have to do a lot with a student's environment, it does not fit as well into any of the other categories. Thus, we thought it best to group it with the following variables:
 
-    -   famrel
-    -   internet
-    -   studytime
-    -   traveltime
-    -   Pstatus
-    -   address
-    -   famsize
+    -   famrel (Family Relationship)
+    -   internet (Access to internet)
+    -   studytime (Time spent studying)
+    -   traveltime (Time taken to travel to school)
+    -   Pstatus (Whether Parents are separated or together)
+    -   address (Rural or Urban)
+    -   famsize (Less than 3 people or more than 3)
 
 2.  Social
 
-    We regard that following attritbutes are students' social activties. Regarding alcohol consmuption, we concluded that students consume alcohol through social events such as networking, so we categorized into this group.
+    We regard that following attritbutes can be categorized as students' social activties. We hypothesize that students consume alcohol at social events such as parties, so we categorized it into this group.
 
-    -   freetime
-    -   goout
-    -   Dalc
-    -   Walc
-    -   romantic
+    -   freetime (Amount of free time a student has)
+    -   goout (How often a student goes out with friends)
+    -   Dalc (Daily alcohol consumption)
+    -   Walc (Weekend alcohol consumption)
+    -   romantic (Whether or not the student is in a romantic relationship)
 
 3.  Parents
 
-    We agreed that it is quite natural to conclude following attritbutes are related to parents.
+  The following attritbutes are related to parents.
 
-    -   Medu
-    -   Fedu
-    -   Mjob
-    -   Fjob
-    -   guardian
+    -   Medu (Mother's education)
+    -   Fedu (Father's education)
+    -   Mjob (Mother's job)
+    -   Fjob (Father's job)
+    -   guardian (Who is the student's primary guardian)
 
 4.  Profile
 
-    We defined profile as something inherently given to students or something which represents conditions for students. We agreed that following attritbutes are related to profile.
+    The variables associated with student profile were:
 
     -   sex
     -   age
@@ -233,28 +233,30 @@ Following is our definiton of categorization;
     -   G2
     -   G3
     -   absences
-    -   school
+    -   school 
     -   failures
     -   activities
 
 6.  Others
 
-    Following attributes in this group are something we thought does not fit well into any of above groups. Therefore, we created one group called Others and categorized following attributes.
+    Attributes in this group do not fit well into any of above groups. Therefore, we created one group called Others and categorized following attributes.
 
-    -   reason
-    -   higher
-    -   schoolsup
-    -   famsup
-    -   paid
-    -   nursery
+    -   reason (Reason for choosing the school)
+    -   higher (whether or not the student is interested in higher education)
+    -   schoolsup (whether or not the student gets financial support from the school)
+    -   famsup (whether or not the student gets financial support from family)
+    -   paid (extra paid classes within the course subject)
+    -   nursery (Whether or not student attended nursery as a child)
 
 ### 3.3 Issues with the dataset
 
-We found some issues during data quality analysis. According to data source, there are 382 overlapping students who study both the math course and Portuguese course. Such overlapping students have to be unique in both the datasets.
+We found some issues during data quality analysis. According to data source, there are 382 students who study both the math course and Portuguese course. Such overlapping students ideally have to be unique in both the datasets, i.e have the same values for all columns in both the datasets.
 
 However, when we tried to join math course data set and Portuguese some of students data appeared not to be unique. Specifically, when we tried to join students by using school, sex, age, address, famsize, Pstatus, Medu, Fedu, Mjob, Fjob, reason, nursery, internet as keys, some columns showed different values.
 
 We found that values in such columns were obtained through interview questions to students, and concluded that there may be some human error in tabulating the results or answering questions, resulting in different answers in different surveys by the same students.
+
+It could also be possible that the clashes may be occuring due to the presence of twins going to the same school, as they have the same parents
 
 4 Main analysis (Exploratory Data Analysis)
 ===========================================
