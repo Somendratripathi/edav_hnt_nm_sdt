@@ -8,7 +8,7 @@ Hrishikesh Telang, Naoto Minakawa, Somendra Tripathi
 
 ### 1.1 Motivation
 
-Grades are obviously one of biggest concern during student lives. To make the most of our lives at Columbia DSI, we wanted to analyze what factors are associated with better grades.
+Grades are primary indicators of a student's academic performance. While there may not be a correlation between grades and a student's intelligence, there are definitely multiple external factors which contribute to a student's grade. We wanted to analyze the effect of multiple factors like parents' education, alcohol consumption, free time, etc. on a student’s grades.
 
 ### 1.2 Questions which we are interested in studying
 
