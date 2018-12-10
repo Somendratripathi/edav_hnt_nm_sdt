@@ -989,8 +989,17 @@ The variables which were found to be most correlated with final grade (G3) were:
 4. Number of times student has failed in the past (fail)
 5. Time devoted to studying (studytime)
 
+A student is said to fail if his/her final grade (G3) is below 9. We wanted to build a decision tree based on the above variables to help us understand trends in the data better. Eg. Will a student pass if he/she has failed twice before but their study time is high?
 
-https://blockbuilder.org/hrishifishy/c0289a2bbaa8b20d52b7c483c5816f77
+However, as seen from the graphs below, we can see that G1 and G2 are highly correlated with G3. It implies that G3 is highly sensitive to these two variables and thus, constructing a decision tree which involves these two variables would lead to a tree with minimal depth and the splitting variables would only be G1 and G2. Thus, we decided to exclude these two variables from the task of constructing a decision tree.
+
+![](FP_report_v1_files/figure-markdown_github/fig4.3.5.1-1.png)
+
+We used the ‘rpart’ package in R to construct a classification tree for our data. The resultant tree was stored in a .json file that was then used to construct our interactive decision tree.
+
+Feel free to construct your own hypothetical student using variables famrel, failures and studytime and see if they will Pass or Fail. 
+
+Link: https://blockbuilder.org/hrishifishy/c0289a2bbaa8b20d52b7c483c5816f77
 
 7 Conclusion
 ============
