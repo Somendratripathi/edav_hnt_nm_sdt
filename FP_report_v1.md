@@ -981,7 +981,12 @@ Please find an executive summary for this URL.
 6 Interactive component
 =======================
 
-Please find an interactive chart for this URL.
+The variables which were found to be most correlated with final grade (G3) were:
+            1. Grade in first half of semester (G1)
+            2. Grade in the second half of semester (G2)
+            3. Relationship with family (famrel)
+            4. Number of times student has failed in the past (fail)
+            5. Time devoted to studying (studytime)
 
 7 Conclusion
 ============
