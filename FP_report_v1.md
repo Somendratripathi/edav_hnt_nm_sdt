@@ -36,7 +36,7 @@ Our team consists of Hrishikesh Telang, Naoto Minakawa, and Somendra Tripathi. F
 
 ### 2.1 The Brief Explanation of Dataset
 
-We chose Student Performance Data Set which is provided on UC Irvine Machine Learning Repository. The data were obtained in a survey of students at math and Portuguese language courses in secondary school. It contains a lot of interesting social, gender and study information about students. Some variables are associated with the questions we are interested in. There are several (382) students that belong to both datasets.
+We chose Student Performance Data Set which is provided on UC Irvine Machine Learning Repository. The data were obtained in a survey of students at math and Portuguese language courses in secondary school. It contains a lot of interesting social, gender-based and study related information about students. Some variables are associated with the questions we are interested in. There are several (382) students that belong to both datasets.
 
 (Source)
 
