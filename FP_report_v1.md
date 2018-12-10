@@ -29,7 +29,7 @@ As negative factors to grade, we made following guessses.
 
 ### 1.3 Team Member and Individual Contribution to Project
 
-Our team consists of Hrishikesh Telang, Naoto Minakawa, and Somendra Tripathi. For exploratory data analysis (EDA) part, we categorize variables into several groups as mentioned in detail later at 3.2. Each individual conducted EDA for a specific group of variables. After EDA, Hrishkesh implemented interactive chart in D3, Somendra conducted further EDA, Naoto gathered materials to create report. Finally, we reviewed our consolidated work and created executive summary. We regularly discussed issues and progress so that we can be on the same page.
+Our team consists of Hrishikesh Telang, Naoto Minakawa, and Somendra Tripathi. For exploratory data analysis (EDA) part, we categorize variables into several groups as mentioned in detail later at 3.2. Each individual conducted EDA for a specific group of variables. After EDA, Hrishkesh implemented interactive chart in D3, Somendra conducted further EDA, Naoto and Hrishikesh worked on creating the report. Finally, we reviewed our consolidated work and created executive summary. We regularly discussed issues and progress so that we can be on the same page.
 
 2 Description of data
 =====================
@@ -116,34 +116,13 @@ theme_set(c(theme_classic(12),plot.title = element_text(face = "bold", size = 12
 
 ### 3.1 Observation on dataset
 
-Student file contains the following number of observations :
+We observed that the number of students were distributed as follows :
 
 -   Mathematics : 395
 -   Portuguese : 677
 -   Both : 382
 
-We focused on analyzing only datasets of students at Portuguese course, because we concluded behaviour of two datasets (student-mat.csv and studenty-por.csv) are alike as well as we found there are some data issues as mentioned in 3.3.
-
-For the first reason, although some students have performed poorly in mathematics and have managed a passing score in Portuguese, two variables are positively correlated.
-
-``` r
-# Merge math and Portuguese students data
-student_both=merge(student_mat,student_por,by=c("school","sex","age","address","famsize","Pstatus","Medu",
-                                                "Fedu","Mjob","Fjob","reason","nursery","internet"))
-#print(nrow(student_both)) # 382 students
-
-# Plot correlation
-ggplot(student_both, aes(G3.x,G3.y,color = "blue"))+
-  geom_jitter() + 
-  theme(legend.position = "none") +
-  xlab("Maths grade") +
-  ylab("Portuguese grade") +
-  ggtitle("Correlation between grades in Maths & Portuguese")
-```
-
-![](FP_report_v1_files/figure-markdown_github/fig3.0-1.png)
-
-Secondly, distribution of grades are alike at Math course and Portuguese course.
+It was also obvious from our initial exploration that a lot more students were scoring Zeros in Maths compared to Portuguese.
 
 ``` r
 p_por <- student_por %>%
@@ -178,6 +157,27 @@ gridExtra::grid.arrange(p_por,p_mat,ncol=2)
 ```
 
 ![](FP_report_v1_files/figure-markdown_github/fig3.1-1.png)
+
+
+Although some students have performed poorly in Mathematics, we can see below that the two variables are positively correlated. This shows that analysis of final grade of the Mathematics and Portuguese datasets would yield comparable results. Thus, we made a decision to only analyze the Portuguese dataset for our project.
+
+``` r
+# Merge math and Portuguese students data
+student_both=merge(student_mat,student_por,by=c("school","sex","age","address","famsize","Pstatus","Medu",
+                                                "Fedu","Mjob","Fjob","reason","nursery","internet"))
+#print(nrow(student_both)) # 382 students
+
+# Plot correlation
+ggplot(student_both, aes(G3.x,G3.y,color = "blue"))+
+  geom_jitter() + 
+  theme(legend.position = "none") +
+  xlab("Maths grade") +
+  ylab("Portuguese grade") +
+  ggtitle("Correlation between grades in Maths & Portuguese")
+```
+
+![](FP_report_v1_files/figure-markdown_github/fig3.0-1.png)
+
 
 ### 3.2 Categorization of Data Attributes
 
