@@ -8,7 +8,7 @@ Hrishikesh Telang, Naoto Minakawa, Somendra Tripathi
 
 ### 1.1 Motivation
 
-Grades are the primary indicator of a student's academic performance. While there may not be a correlation between grades and a student's intelligence, there are definitely multiple external factors which contribute to a student's grade. We wanted to analyze the effect of multiple factors on students' grades.
+Grades are the primary indicator of a student's academic performance. While there may not be a correlation between grades and a student's intelligence, there are definitely multiple external factors which contribute to a student's grade. We wanted to analyze the effect of multiple factors like parents' education, alcohol consumption, free time, etc. on students' grades. 
 
 ### 1.2 Questions which we are interested in studying
 
@@ -29,7 +29,7 @@ As negative factors to grade, we made following guessses.
 
 ### 1.3 Team Member and Individual Contribution to Project
 
-Our team consists of Hrishikesh Telang, Naoto Minakawa, and Somendra Tripathi. For exploratory data analysis (EDA) part, we categorize variables into several groups as mentioned in detail later at 3.2. Each individual conduct EDA for assigned group of variables. After EDA, Hrishkesh implemented interactive chart in D3, Somendra conducted further EDA, Naoto gathered materials to create report. Finally, we reviewed our consolidated work and created executive summary. We regularly discussed issues and progress so that we can be on the same page.
+Our team consists of Hrishikesh Telang, Naoto Minakawa, and Somendra Tripathi. For exploratory data analysis (EDA) part, we categorize variables into several groups as mentioned in detail later at 3.2. Each individual conducted EDA for a specific group of variables. After EDA, Hrishkesh implemented interactive chart in D3, Somendra conducted further EDA, Naoto gathered materials to create report. Finally, we reviewed our consolidated work and created executive summary. We regularly discussed issues and progress so that we can be on the same page.
 
 2 Description of data
 =====================
