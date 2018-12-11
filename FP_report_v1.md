@@ -693,11 +693,11 @@ ggplot(student_por, aes(x=Dalc, y=absences, fill=Dalc))+
 
 ### 4.3.3 Analysis for Parents Group
 
-We observed parents occupation and education background affects students grade. We will introduce analysis results followingly.
+We observed parents occupation and education background affects students grade. We will introduce analysis results in the following section.
 
-First of all, students whose parents job is teacher performs better than other students.
+First of all, students whose parents work as teachers get better grades than other students.
 
-Regarding father's job, students whose father is teacher performs significantly better than other students. Students whose father is working in health industry performs relatively well.
+Students whose fathers are teachers perform significantly better than other students. Students whose fathers work in health industry perform relatively well too.
 
 ``` r
 mosaic(G3_erasmus ~ Fjob,student_por,
@@ -708,7 +708,7 @@ mosaic(G3_erasmus ~ Fjob,student_por,
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.3.1-1.png)
 
-Similarly, students whose mother is teacher performs significantly better than other students. Students whose mother is working in health industry performs also well, whereas the effect of parents job to be health related is not so significant in father's job case.
+Similarly, students whose mothera are teachers perform significantly better than other students. Students whose mothers are working in health industry also do well. In fact, having a mother working in the health industry seems to have a bigger impact on student's grades compared to having a father working in the health industry.
 
 ``` r
 mosaic(G3_erasmus ~ Mjob,student_por,
@@ -719,7 +719,7 @@ mosaic(G3_erasmus ~ Mjob,student_por,
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.3.2-1.png)
 
-Secondly, parent education is also associated with students' grade. As indicated in 2.2, the larger number means the higher education.
+Secondly, parent education is also associated with students' grade. As indicated in 2.2, bigger the number in Fedu and Medu means higher the education.
 
 When father took higher education, students perform better in their grades. In the chart below, we can see students grades become better, as father's education goes higher.
 
