@@ -1000,7 +1000,10 @@ However, as seen from the graphs below, we can see that G1 and G2 are highly cor
 
 Feel free to construct your own hypothetical student using variables famrel, failures and studytime and see if they will Pass or Fail. 
 
+Demo: https://imgur.com/N7jS4A7
+
 Link: https://blockbuilder.org/hrishifishy/c0289a2bbaa8b20d52b7c483c5816f77
+
 
 Technical Execution:
 
