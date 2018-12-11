@@ -976,7 +976,7 @@ Also, we sometimes observed no associations for single variables, however, when 
 5 Executive summary (Presentation-style)
 ========================================
 
-Please find an executive summary for this URL.
+Link: https://github.com/Somendratripathi/edav_hnt_nm_sdt/blob/master/FP_executive_summary_v4.pdf
 
 6 Interactive component
 =======================
