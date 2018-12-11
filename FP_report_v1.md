@@ -1005,8 +1005,14 @@ Link: https://blockbuilder.org/hrishifishy/c0289a2bbaa8b20d52b7c483c5816f77
 7 Conclusion
 ============
 
-As seen in 4, we found a lot of association which have impact on students' grade. Whereas some results macthed up with our guess before EDA, other results are actually surprising to us.
+We started with a few broad questions we wanted to answer, and along the way discovered some very interesting insights from the data, which we have detailed in the Executive Summary section of the report.
 
-What we learned through trial and error is, it is certainly effective to focus on a specific variable, and drill down by questioning "why?" By doing so, we could find some stories-like results behind the variable. We initially conducted analysis by analyzing each variable extensively, however, it was more efficient to focus a specific variable and drill down. Although there may be no definte answer regarding how to conduct EDA, we learned this approach was effective.
+What we learned through the exploratory phase is that it is highly effective to focus on a specific variable and formulate certain educated questions around it. After a preliminary visualization or after uncovering some trend in the data we found that drilling down by asking the question "why?" proved to be very effective in analyzing trends. We could thus construct a narrative around a variable. For example, in analysis of the Social Group and the variable ‘freetime’, we found that students with lower grades tend to have higher free time. After asking ‘Why?’, we discovered that students with higher free times not only go out with friends more often but are also more likely to engage in extra curricular activities. After asking does free time impact any other variable, we found that students with lesser free time reported low health. In this way we learnt that though there may be a definite answer regarding how to conduct EDA, this approach was effective in analysing the data.
 
-As mentioned in 4.4 challenges, we learned actual data is not so easy to work with. We spent a lot of time on data quality anaysis, data cleaning, and EDA whie there is a timelimit. It is important to pay attention to time management so that we can successfully deliver results.
+One of the major limitations of the dataset was that the data was collected through surveys, which means that most of the answers (apart from Grades) were self-reported by students. This brings in a lot of subjectivity into the data, for example students may have very different definitions of what constitutes high drinking or low family relationship. 
+
+Secondly, the data is from high school students studying in Portugal in 2006, which was 12 years ago. Societal and cultural norms may differ in 2018, which are not reflected in the conclusions drawn from the data. Lastly, the data is only derived from two high schools in Portugal and thus cannot be said to represent general trends in students’ grades in Portugal or the world at large.
+
+In terms of the future scope of this analysis, we would definitely want to work with a larger and more diverse dataset, ideally having standardized definitions for variables and taken from multiple high schools. We hope our results and methodology can be used to analyse similar datasets and measure the impact of external factors on a student’s grades.
+
+
