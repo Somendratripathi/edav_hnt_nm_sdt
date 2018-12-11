@@ -649,7 +649,7 @@ student_por %>%
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.2.10-1.png)
 
-However, we found something interesting when we also observe whether there are any association between workday/weekend alcohol consumption and grades, splitting data by gender. From the chart, we can see males who consumes alcohol weekend very highly tend to earn worse grades.
+However, we found something interesting when we also observe whether there are any association between workday/weekend alcohol consumption and grades, splitting data by gender. From the chart, we can see males who consume alcohol on weekend are highly likely to get bad grades.
 
 ``` r
 c3 <- ggplot(student_por, aes(x=Dalc, y=G3, color=sex))+
@@ -677,7 +677,7 @@ gridExtra::grid.arrange(c3,c4, nrow=2)
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.2.11-1.png)
 
-This is for fun. What a coincidence this is! Look at where alcohol consumption is very high.
+The following visualization is just being included because coincidentally, the plot for very high alcohol consumption looks like a bottle! Take from that what you may.
 
 ``` r
 ggplot(student_por, aes(x=Dalc, y=absences, fill=Dalc))+
