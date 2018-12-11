@@ -478,8 +478,7 @@ student_por %>%
 
 ### 4.3.2 Analysis for Social Group
 
-In social group, Freetime was the most interesting variable which affects grade. From the following chart, we can see lower grade students have higher free time.
-
+In social group, Freetime was the most interesting variable which affects grade. From the following chart, we can see students with higher free time scoring lower grades.
 ``` r
 student_por$freetime <- factor(student_por$freetime,
                                labels=c('very_low', 'low', 'medium', 'high', 'very_high'),
@@ -503,7 +502,7 @@ student_por %>%
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.2.1-1.png)
 
-Then, we came up with the question - "So what do they do during their free time?". Interestingly, students with high free time reported participation extra curricular activities.
+Then, we asked the question - "So what do they do during their free time?". Oddly enough, students with high free time reported the most participation extra curricular activities.
 
 ``` r
 student_por %>% 
@@ -519,7 +518,7 @@ student_por %>%
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.2.2-1.png)
 
-We also investigated whether a particular gender report more free time or not. Compared to males, females frequently reported they have lower free time.
+We also investigated whether a particular gender reports more free time or not. Compared to males, females frequently reported they have lower free time.
 
 ``` r
 student_por %>%
@@ -540,7 +539,7 @@ student_por %>%
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.2.3-1.png)
 
-There can be seen another association between students with more free time and goout. Students with a lot of free time goout with friends a lot more.
+There also seems to be an association between going out with friends and having free time. Students with a lot of free time go out with friends a lot more.
 
 ``` r
 student_por$goout <- factor(student_por$goout,
@@ -559,7 +558,7 @@ student_por %>%
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.2.4-1.png)
 
-There are some association between freetime and health. For the students with very low free time, their health condition is worse.
+There are some associations between freetime and health. For students with very low free time, health condition is bad compared to their peers.
 
 ``` r
 mosaic(health ~ freetime,student_por,
