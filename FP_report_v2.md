@@ -1,7 +1,3 @@
-EDAV fall 2018 Final Project (hnt2107\_nm3086\_sdt2134)
-================
-Hrishikesh Telang, Naoto Minakawa, Somendra Tripathi
-12/10/2018
 
 EDAV fall 2018 Final Project (hnt2107\_nm3086\_sdt2134)
 =======================================================
