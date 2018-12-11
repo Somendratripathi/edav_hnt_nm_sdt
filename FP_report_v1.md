@@ -388,7 +388,7 @@ ggtitle("No difference in grades")
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.1.6-1.png)
 
-We then check the same trend by urban and rural areas. 
+We then check the same trend by urban and rural areas. We see students in urban areas whose parents are separated tend to perform slightly better than their counterparts
 
 ``` r
 student_por %>%
@@ -401,7 +401,8 @@ student_por %>%
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.1.7-1.png)
 
-On the other hand, when we look at whether parents live separately or not, facetting by if students live in urban or rural area, we see students living separately from parents in urban area perform better.
+
+We took a look at the combination of family size and whether parents live separately or not, however, it does not have impact on students grades.
 
 ``` r
 student_por %>%
@@ -414,7 +415,7 @@ student_por %>%
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.1.8-1.png)
 
-When we look into the combination of gender and pstatus, males students whose parents were separated performed better.
+When we look into gender distribution, males students whose parents were separated performed better.
 
 ``` r
 x <- student_por %>%
@@ -446,7 +447,7 @@ gridExtra::grid.arrange(x,y,ncol=1,nrow=2)
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.1.10-1.png)
 
-Regarding family relationship, students with higher quality of family relationships earned better grades.
+When analyzing family relationship, students who ranked their family relationships high tended to earned better grades.
 
 ``` r
 student_por$famrel <- factor(student_por$famrel,
@@ -462,7 +463,7 @@ student_por %>%
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.1.11-1.png)
 
-According to the following chart, such tendency is seen for urban families.
+According to the following chart, such tendency is more obvious for urban families.
 
 ``` r
 student_por %>%
