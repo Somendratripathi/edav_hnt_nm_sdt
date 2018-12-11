@@ -263,11 +263,11 @@ It could also be possible that the clashes may be occuring due to the presence o
 
 ### 4.1 Our Approach
 
-As mentioned in 3.2, we categorized 30 attirbutes into 6 groups and individual explored different groups. We will show interesting results per individual group as shown below .
+As previously mentioned, we categorized 30 attirbutes into 6 groups and explored different groups to gain certain insights. We only analyzed the Portuguese student's dataset for reasons discussed above. We first sought to clean our dataset to better represent our results and then proceeded to analyze each of the 6 groups separately.
 
 ### 4.2 Data Cleaning
 
-We converted GPA - G3, G2, G1 to erasmus system described in the paper, since it was more clear to understand. The paper suggests that G3, G2, G1 corresponeds to following level in Portugal/France.
+We converted GPA - G3, G2, G1 to the Erasmus grading system described in the paper, since it was more clear to understand. The Erasmus methodology suggests that G3, G2, G1 corresponeds to following level in Portugal/France.
 
 -   16-20: excellent/very good
 -   14-15: good
@@ -288,7 +288,7 @@ student_por <- student_por %>%
 
 ### 4.3.1 Analysis for Home Environment Group
 
-Firstly, we found that students who live in urban areas earn higher GPA than students in rural area. We also found that there are more students from urban than rural in the report.
+Firstly, we found that students who live in urban areas have higher final grades than students in rural areas. It is also crucial to note that there are more students from urban than rural areas in the report.
 
 ``` r
 student_por$address[student_por$address == 'U'] <- "Urban"
@@ -311,7 +311,7 @@ gridExtra::grid.arrange(address_gpa,freq,ncol=2)
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.1.1-1.png)
 
-We observed that students in urban areas have more access to the internet than students in rural area.
+We next checked whether access to internet has any impact on final grades. While access to internet wasn't found to make any change in a student's final grades in Rural areas, Urban students with access to internet outperformed their fellow students without internet.
 
 ``` r
 student_por %>%
@@ -324,7 +324,7 @@ student_por %>%
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.1.2-1.png)
 
-We analyzed if a particular school is more linient and urban people go to that school. School GP indicated more higher GPA.
+We tried to analyze if going to a particular school has an impact on grades.It can be seen that School GP reported higher grades.
 
 ``` r
 student_por %>%
@@ -337,7 +337,7 @@ student_por %>%
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.1.3-1.png)
 
-Interestingly, 76% students in urban ares study at GP while 40% of students in rural area do so.
+On further analysis, we can see that interestingly, 76% students in urban ares study at GP while 40% of students in rural area do so. This might explain the higher grades found in urban students.
 
 ``` r
 student_por %>% 
@@ -357,7 +357,7 @@ student_por %>%
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.1.4-1.png)
 
-Next, we analyzed what role famsize play. We don't see any difference regarding grades due to family size. Most of the families have sizes greater than 3.
+Next, we tried to determine if family size plays any part . We don't see any difference in grades due to family size. Most of the families have sizes greater than 3.
 
 ``` r
 famsize_gpa<- student_por %>%
@@ -376,7 +376,7 @@ gridExtra::grid.arrange(famsize_gpa,freq,ncol=2)
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.1.5-1.png)
 
-Regarding whether parents live separately or not, it does not have impact on students grades.
+Whether or not parents live separately,it does not have impact on students grades.
 
 ``` r
 student_por %>%
@@ -388,7 +388,7 @@ ggtitle("No difference in grades")
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.1.6-1.png)
 
-We took a look at the combination of family size and whether parents live separately or not, however, it does not have impact on students grades.
+We then check the same trend by urban and rural areas. 
 
 ``` r
 student_por %>%
