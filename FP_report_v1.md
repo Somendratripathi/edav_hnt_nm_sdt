@@ -760,9 +760,9 @@ mosaic(G3_erasmus ~ Fedu2+Medu2,student_por,
 
 ### 4.3.4 Analysis for Profile Group
 
-Overall, this group appears to be not so related to grades performance. Having said that, we will describe what we analyzed as follows.
+Overall, this group appears to be not too related to performance. Having said that, we will describe what we analyzed as follows.
 
-Regarding sex, we don't see any significant difference between males' and females' grade performance. Grades distribution was almost identical.
+When it came to gender, we don't see any significant difference between male and female grade performance. Grades distribution was almost identical.
 
 ``` r
 student_por %>%
@@ -794,7 +794,7 @@ student_por %>%
 
 ### 4.3.5 Analysis for Academics Group
 
-We observed final grade are strongly correlated with 1st period grade and 2st period grade.
+We observed that final grades are strongly correlated with 1st period grade and 2st period grade.
 
 ``` r
 g1 <- ggplot(student_por, aes(G3,G1,color = "blue"))+
@@ -836,7 +836,7 @@ text(fivenum(D)[c(2,4)], .75, round(fivenum(D),1)[c(2,4)], col = "red")
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.5.2-1.png)
 
-We can see students most frequently absent from school have worse grades performance than student less absences.
+We can see students most frequently absent from school have poorer grades than students with lesser absences.
 
 ``` r
 student_por %>%
@@ -928,7 +928,7 @@ student_por %>%
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.6.4-1.png)
 
-Regarding schoolup (school suppport) variable, students who recieved educational support from school showed lower grades. We don't have any reason to assume causality in either direction. Also, very few students getting education support from school.
+Regarding schoolup (school suppport) variable, students who recieved educational support from school showed lower grades. We don't have any reason to assume causality in either direction. Also, very few students get education support from school.
 
 ``` r
 box <- student_por %>%
@@ -947,7 +947,7 @@ gridExtra::grid.arrange(box,bar, nrow=1,ncol=2)
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.6.5-1.png)
 
-As for famsup (family support) and romantic (in a romantic relationship), we don't see any difference between two groups.
+As for famsup (family support) and romantic (in a romantic relationship), we don't see any difference in distribution of grades between two groups.
 
 ``` r
 student_por %>%
@@ -971,7 +971,7 @@ student_por %>%
 
 Actual data was not so easy to work with. As Prof. Joyce Robbins mentioned in the class, EDA cycle is not clearly sequential. We needed to go back and forth through datasets. As mentioned in 3.3, we also identified some data issues. We realized it is important to conduct data quality anaysis to see if there are any anomalies and human error we need to remove.
 
-Also, we sometimes observed no association for single variable, however, when we facet by another variable, we could find some patterns. There was no definite method to find such patterns, we needed to assume hypotheis and conduct verification of such hypothesis though trial and error. It took so much time to do so, and it was challenging while we have a timelimit.
+Also, we sometimes observed no associations for single variables, however, when we facet by another variable, we could find some patterns. There was no definite method to find such patterns, we needed to formulate our own initial hypothesis and conduct verification of such hypothesis though trial and error. It took a lot of time to do so, and it was challenging to do so while facing deadlines.
 
 5 Executive summary (Presentation-style)
 ========================================
