@@ -996,11 +996,19 @@ However, as seen from the graphs below, we can see that G1 and G2 are highly cor
 
 ![](FP_report_v1_files/figure-markdown_github/fig4.3.5.1-1.png)
 
-We used the ‘rpart’ package in R to construct a classification tree for our data. The resultant tree was stored in a .json file that was then used to construct our interactive decision tree.
+
 
 Feel free to construct your own hypothetical student using variables famrel, failures and studytime and see if they will Pass or Fail. 
 
 Link: https://blockbuilder.org/hrishifishy/c0289a2bbaa8b20d52b7c483c5816f77
+
+Technical Execution:
+
+We used the ‘rpart’ package in R to construct a classification tree for our data. The resultant tree structure was stored in a .json file (structure.json) that was then used to construct our interactive decision tree in D3.
+
+While we chose to focus on the variables that were most correlated with final grade, one could also construct a decision tree using other numeric variables to see what conclusion they lead to.
+
+We would have liked to play around with such a feature in our interactive component, where a user could select variables they wanted to construct a decision tree with and then display a custom tree for the selected variables, but doing so would have become very cumbersome in d3 and we would have had to run the decision tree construction algorithm in the backend after the variables were selected
 
 7 Conclusion
 ============
